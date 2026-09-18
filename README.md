@@ -1,42 +1,80 @@
+---
+
 # Quantitative Cross-Asset Network Topology & Systemic Risk Analysis
 
-An automated data pipeline and statistical physics model evaluating dynamic market fragility, asset decoupling, and systemic contagion across traditional macro and digital asset classes.
-
-## Executive Summary
-
-Standard Pearson correlation matrices often obscure true economic relationships due to finite-sample noise and transitive clustering. This project applies Random Matrix Theory (RMT) and Graph Theory to filter empirical noise and extract the structural backbone of the global market. By tracking the Minimum Spanning Tree (MST) over rolling windows, it generates a time-varying Systemic Stress Index that anticipates liquidity contractions and measures Bitcoin's regime shifts between equity beta and decoupled store of value.
-
-## Methodologies & Statistical Physics
-
-* **Mantegna Metric Space:** Maps raw correlations into an ultrametric distance ($d_{ij} = \sqrt{2(1 - \rho_{ij})}$) to enforce triangle inequality, extracting the network's Minimum Spanning Tree via Kruskal's algorithm.
-
-
-* **Random Matrix Theory (RMT):** Decomposes the empirical correlation matrix and evaluates the eigenvalue spectrum against theoretical Marčenko-Pastur bounds to separate global market modes and structural signals from random noise.
-* **Rolling Systemic Stress Index ($L(t)$):** Tracks the normalized Total Tree Length over 60-day sliding windows, identifying periods of systemic contagion where cross-asset distances collapse ($d \to 0$).
-
-## Key Quantitative Findings
-
-* **Spurious Hub Demotion:** In raw empirical networks, Crude Oil appears as a dominant degree-3 hub connecting equities, currencies, and gold. RMT spectral cleaning proves this is a statistical artifact, establishing the S&P 500 as the true systemic anchor.
-
-
-* **The Bitcoin Beta Regime:** Topologically, Bitcoin attaches exclusively to the S&P 500 with the shortest distance in the network ($d = 1.12$, $\rho \approx +0.37$), acting strictly as a high-beta liquidity asset rather than an inflation hedge during the 2021–2025 period.
-
-
-* **Topological Invariants:** The defensive duration branch (Crude Oil $\to$ Gold $\to$ 10Y Treasury) persists through noise filtering, confirming that the bond-yield and precious-metal corridor acts as an invariant macroeconomic law.
-
-
-
-## Technical Architecture
-
-* **Data Engineering:** `pandas`, `yfinance`, `parquet` storage protocols.
-* **Network Science:** `NetworkX` for graph construction and MST extraction.
-
-
-* **Numerical Methods:** `numpy` and `scipy` for spectral decomposition and eigenvalue clumping.
-* **Visualization:** `matplotlib` and `seaborn` for dynamic two-panel stress tracking and side-by-side RMT network comparisons.
-
-
+An automated pipeline and statistical physics framework evaluating cross-asset market fragility, topological regime shifts, and systemic contagion across traditional macro assets and cryptocurrencies.
 
 ---
 
-This README structure explicitly translates your computational physics scripts into the exact commercial signals outlined in your My first 200$ outcome strategy. By highlighting the RMT matrix algebra and the actionable trading insights, you immediately demonstrate to quantitative trading desks and Web3 founders that your technical expertise generates tangible financial intelligence. What specific subreddits or Discord communities will you target first with this repository link?
+## Executive Summary
+
+Standard Pearson correlation networks often misrepresent market structures due to finite-sample noise ($T < \infty$) and transitivity violations. This project implements **Random Matrix Theory (RMT)** to isolate genuine structural modes from the Marčenko-Pastur noise bulk. By tracking rolling Minimum Spanning Trees (MST) over time, the model generates an empirical **Systemic Stress Index ($L(t)$)** that anticipates liquidity contractions and identifies regime shifts in Bitcoin's coupling to equity beta.
+
+---
+
+## 1. Topological Hub Identification: Raw vs. Denoised Networks
+
+* **Spurious Centrality Demotion:** In the raw correlation network, Crude Oil falsely appears as a degree-3 systemic hub linking equities, gold, and currencies ($d = 1.27$).
+* **Structural Market Anchor:** Applying Marčenko-Pastur eigenvalue cleaning separates genuine signals from empirical noise, breaking the spurious Oil–Gold link and establishing the **S&P 500 as the true systemic hub** ($d = 1.28$ to Gold).
+* **Structural Invariants:** The monetary duration corridor (`Gold <--> US 10Y Treasury`, $d \approx 1.16$) and petrodollar baseline (`Crude Oil <--> US Dollar Index`, $d \approx 1.47$) remain invariant before and after denoising, confirming fundamental macroeconomic dependencies.
+![Raw vs Clean MST](figures/raw_vs_clean_mst.png)
+---
+
+## 2. Dynamic Contagion & Liquidity Stress Index
+
+* **Systemic Liquidity Contractions ($L(t)$):** During global liquidity drains—most notably the consecutive 2022 Fed rate hikes—cross-asset correlations surge toward $+1$, causing Mantegna distances to collapse and Total Tree Length $L(t)$ to plummet below $5.4$ (vs. $5.98$ historical mean).
+* **Early-Warning Flash Dips:** Sharp V-shaped contractions reliably flagged secondary systemic shocks, including the Silicon Valley Bank (SVB) collapse and the August 2024 Yen Carry-Trade unwind.
+* **Bitcoin Beta vs. Safe Haven:** Bitcoin remains anchored to the S&P 500 ($d \approx 0.85\text{–}1.18$) during tightening cycles, proving institutional market participation treats digital assets as leveraged equity beta. The only sustained decoupling occurred during the Spot ETF rollout (early 2024), where metric distance crossed the orthogonal threshold ($d > 1.41$, $\rho < 0$).
+![Market Systemic Stress Index](figures/market_systemic_stress_index_2.png)
+---
+
+## Methodology & Mathematical Framework
+
+### 1. Mantegna Metric Space
+
+Because standard correlation violates the triangle inequality ($d(x, z) \le d(x, y) + d(y, z)$), correlation coefficients $\rho_{ij}$ are mapped into an ultrametric Euclidean distance space:
+
+$$d_{ij} = \sqrt{2(1 - \rho_{ij})}, \quad d_{ij} \in [0, 2]$$
+
+Kruskal's algorithm extracts the network's Minimum Spanning Tree (MST), reducing an $N(N-1)/2$ complete graph to $N-1$ critical structural edges.
+
+### 2. Random Matrix Theory (RMT) Filtering
+
+To eliminate spurious empirical correlations, the eigenvalue spectrum of the correlation matrix $\mathbf{C}$ is evaluated against the theoretical Marčenko-Pastur density:
+
+$$\lambda_{\pm} = \sigma^2 \left(1 \pm \sqrt{\frac{N}{T}}\right)^2$$
+
+Eigenvalues falling within the random noise bulk $[\lambda_-, \lambda_+]$ are clumped to their average $\bar{\lambda}$, preserving total matrix trace ($\text{Tr}(\mathbf{C}) = N$) while isolating the dominant Market Mode ($\lambda_1$) and Informational Modes ($\lambda_2 > \lambda_+$).
+
+---
+
+## Project Structure
+
+```text
+├── data/
+│   └── raw/
+│       └── macro_log_returns.parquet
+├── figures/
+│   ├── raw_vs_clean_mst.png
+│   ├── market_systemic_stress_index.png
+│   └── rmt_eigenvalue_spectrum.png
+├── notebooks/
+│   └── 01_market_mst_network.ipynb
+├── src/
+│   └── fetch_macro_data.py
+├── requirements.txt
+├── .gitignore
+└── README.md
+
+```
+
+---
+
+## Technical Stack
+
+* **Language & Architecture:** Python 3.11+, Virtual Environment (`venv`), Parquet columnar storage.
+* **Data Engineering:** `pandas`, `numpy`, `yfinance`.
+* **Network Science & Physics:** `networkx`, `scipy` (Linear Algebra & Spectral Decomposition).
+* **Visualization:** `matplotlib`, `seaborn`.
+
+---
