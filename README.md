@@ -17,6 +17,7 @@ Standard Pearson correlation networks often misrepresent market structures due t
 * **Spurious Centrality Demotion:** In the raw correlation network, Crude Oil falsely appears as a degree-3 systemic hub linking equities, gold, and currencies ($d = 1.27$).
 * **Structural Market Anchor:** Applying Marčenko-Pastur eigenvalue cleaning separates genuine signals from empirical noise, breaking the spurious Oil–Gold link and establishing the **S&P 500 as the true systemic hub** ($d = 1.28$ to Gold).
 * **Structural Invariants:** The monetary duration corridor (`Gold <--> US 10Y Treasury`, $d \approx 1.16$) and petrodollar baseline (`Crude Oil <--> US Dollar Index`, $d \approx 1.47$) remain invariant before and after denoising, confirming fundamental macroeconomic dependencies.
+---
 ![Raw vs Clean MST](figures/raw_vs_clean_mst.png)
 ---
 
@@ -25,6 +26,7 @@ Standard Pearson correlation networks often misrepresent market structures due t
 * **Systemic Liquidity Contractions ($L(t)$):** During global liquidity drains—most notably the consecutive 2022 Fed rate hikes—cross-asset correlations surge toward $+1$, causing Mantegna distances to collapse and Total Tree Length $L(t)$ to plummet below $5.4$ (vs. $5.98$ historical mean).
 * **Early-Warning Flash Dips:** Sharp V-shaped contractions reliably flagged secondary systemic shocks, including the Silicon Valley Bank (SVB) collapse and the August 2024 Yen Carry-Trade unwind.
 * **Bitcoin Beta vs. Safe Haven:** Bitcoin remains anchored to the S&P 500 ($d \approx 0.85\text{–}1.18$) during tightening cycles, proving institutional market participation treats digital assets as leveraged equity beta. The only sustained decoupling occurred during the Spot ETF rollout (early 2024), where metric distance crossed the orthogonal threshold ($d > 1.41$, $\rho < 0$).
+---
 ![Market Systemic Stress Index](figures/market_systemic_stress_index_2.png)
 ---
 
