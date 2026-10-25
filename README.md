@@ -23,7 +23,7 @@ Standard Pearson correlation networks often misrepresent market structures due t
 
 ## 2. Dynamic Contagion & Liquidity Stress Index
 
-* **Systemic Liquidity Contractions ($L(t)$):** During global liquidity drains—most notably the consecutive 2022 Fed rate hikes—cross-asset correlations surge toward $+1$, causing Mantegna distances to collapse and Total Tree Length $L(t)$ to plummet below $5.4$ (vs. $5.98$ historical mean).
+* **Systemic Liquidity Contractions $L(t)$:** During global liquidity drains—most notably the consecutive 2022 Fed rate hikes—cross-asset correlations surge toward $+1$, causing Mantegna distances to collapse and Total Tree Length $L(t)$ to plummet below $5.4$ (vs. $5.98$ historical mean).
 * **Early-Warning Flash Dips:** Sharp V-shaped contractions reliably flagged secondary systemic shocks, including the Silicon Valley Bank (SVB) collapse and the August 2024 Yen Carry-Trade unwind.
 * **Bitcoin Beta vs. Safe Haven:** Bitcoin remains anchored to the S&P 500 ($d \approx 0.85\text{–}1.18$) during tightening cycles, proving institutional market participation treats digital assets as leveraged equity beta. The only sustained decoupling occurred during the Spot ETF rollout (early 2024), where metric distance crossed the orthogonal threshold ($d > 1.41$, $\rho < 0$).
 ---
